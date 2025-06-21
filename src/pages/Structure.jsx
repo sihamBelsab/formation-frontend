@@ -22,29 +22,29 @@ const DirectionManagement = ({ role }) => {
   const addForm = useForm({
     resolver: zodResolver(directionSchema),
     mode: 'onChange',
-    defaultValues: { direction: '' }
+    defaultValues: { direction: '' },
   });
 
   // Form for editing directions
   const editForm = useForm({
     resolver: zodResolver(directionSchema),
     mode: 'onChange',
-    defaultValues: { direction: '' }
+    defaultValues: { direction: '' },
   });
 
-  const handleAdd = async (data) => {
+  const handleAdd = async data => {
     const result = await createDirection(data);
     if (result.success) {
       addForm.reset();
     }
   };
 
-  const handleEdit = (direction) => {
+  const handleEdit = direction => {
     setEditingId(direction.idDirection);
     editForm.reset({ direction: direction.direction });
   };
 
-  const handleSave = async (data) => {
+  const handleSave = async data => {
     const result = await updateDirection(editingId, data);
     if (result.success) {
       setEditingId(null);
@@ -57,7 +57,7 @@ const DirectionManagement = ({ role }) => {
     editForm.reset();
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async id => {
     if (!window.confirm('Voulez-vous vraiment supprimer cette direction ?')) return;
     await deleteDirection(id);
   };
@@ -70,52 +70,50 @@ const DirectionManagement = ({ role }) => {
     <>
       {/* Search */}
       <InputGroup className='mb-3'>
-  <Form.Control
-    type='text'
-    placeholder='Rechercher une direction...'
-    value={searchTerm}
-    onChange={e => setSearchTerm(e.target.value)}
-    className='ps-5' // padding-left pour laisser la place à la loupe
-    style={{ position: 'relative' }}
-  />
-  <BsSearch
-    style={{
-      position: 'absolute',
-      left: '15px',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      color: '#6c757d', // couleur grise Bootstrap
-      pointerEvents: 'none', // pour que l'utilisateur puisse cliquer dans l'input
-    }}
-  />
-</InputGroup>
-
+        <Form.Control
+          type='text'
+          placeholder='Rechercher une direction...'
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+          className='ps-5' // padding-left pour laisser la place à la loupe
+          style={{ position: 'relative' }}
+        />
+        <BsSearch
+          style={{
+            position: 'absolute',
+            left: '15px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            color: '#6c757d', // couleur grise Bootstrap
+            pointerEvents: 'none', // pour que l'utilisateur puisse cliquer dans l'input
+          }}
+        />
+      </InputGroup>
 
       {/* Add Form */}
-      {role === 'service_formation' && ( 
+      {role === 'service_formation' && (
         <Form onSubmit={addForm.handleSubmit(handleAdd)} className='mb-3'>
-        <InputGroup>
-          <Form.Control
-            placeholder='Ajouter une direction '
-            {...addForm.register('direction')}
-            className={addForm.formState.errors.direction ? 'is-invalid' : ''}
-            disabled={loading}
-          />
-          <Button 
-            type='submit' 
-            className='action-button success' 
-            disabled={loading || !addForm.formState.isValid}
-          >
-            {loading ? <Spinner size='sm' /> : 'Ajouter'}
-          </Button>
-        </InputGroup>
-        {addForm.formState.errors.direction && (
-          <div className="text-danger small mt-1">
-            <i className="bi bi-exclamation-circle me-1"></i>
-            {addForm.formState.errors.direction.message}
-          </div>
-                
-        )}
+          <InputGroup>
+            <Form.Control
+              placeholder='Ajouter une direction '
+              {...addForm.register('direction')}
+              className={addForm.formState.errors.direction ? 'is-invalid' : ''}
+              disabled={loading}
+            />
+            <Button
+              type='submit'
+              className='action-button success'
+              disabled={loading || !addForm.formState.isValid}
+            >
+              {loading ? <Spinner size='sm' /> : 'Ajouter'}
+            </Button>
+          </InputGroup>
+          {addForm.formState.errors.direction && (
+            <div className='text-danger small mt-1'>
+              <i className='bi bi-exclamation-circle me-1'></i>
+              {addForm.formState.errors.direction.message}
+            </div>
+          )}
         </Form>
       )}
 
@@ -147,8 +145,8 @@ const DirectionManagement = ({ role }) => {
                           className={editForm.formState.errors.direction ? 'is-invalid' : ''}
                           disabled={loading}
                         />
-                        <Button 
-                          type="submit"
+                        <Button
+                          type='submit'
                           className='action-button success'
                           size='sm'
                           disabled={loading || !editForm.formState.isValid}
@@ -156,7 +154,7 @@ const DirectionManagement = ({ role }) => {
                           Sauvegarder
                         </Button>
                         <Button
-                          type="button"
+                          type='button'
                           className='action-button'
                           size='sm'
                           onClick={handleCancelEdit}
@@ -166,8 +164,8 @@ const DirectionManagement = ({ role }) => {
                         </Button>
                       </InputGroup>
                       {editForm.formState.errors.direction && (
-                        <div className="text-danger small mt-1">
-                          <i className="bi bi-exclamation-circle me-1"></i>
+                        <div className='text-danger small mt-1'>
+                          <i className='bi bi-exclamation-circle me-1'></i>
                           {editForm.formState.errors.direction.message}
                         </div>
                       )}
@@ -219,29 +217,29 @@ const PositionManagement = ({ role }) => {
   const addForm = useForm({
     resolver: zodResolver(positionSchema),
     mode: 'onChange',
-    defaultValues: { poste: '' }
+    defaultValues: { poste: '' },
   });
 
   // Form for editing positions
   const editForm = useForm({
     resolver: zodResolver(positionSchema),
     mode: 'onChange',
-    defaultValues: { poste: '' }
+    defaultValues: { poste: '' },
   });
 
-  const handleAdd = async (data) => {
+  const handleAdd = async data => {
     const result = await createPosition(data);
     if (result.success) {
       addForm.reset();
     }
   };
 
-  const handleEdit = (position) => {
+  const handleEdit = position => {
     setEditingId(position.idPoste);
     editForm.reset({ poste: position.poste });
   };
 
-  const handleSave = async (data) => {
+  const handleSave = async data => {
     const result = await updatePosition(editingId, data);
     if (result.success) {
       setEditingId(null);
@@ -254,7 +252,7 @@ const PositionManagement = ({ role }) => {
     editForm.reset();
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async id => {
     if (!window.confirm('Voulez-vous vraiment supprimer ce poste ?')) return;
     await deletePosition(id);
   };
@@ -266,51 +264,51 @@ const PositionManagement = ({ role }) => {
   return (
     <>
       {/* Search */}
-      <InputGroup className="mb-3 position-relative">
-  <Form.Control
-    type="text"
-    placeholder="Rechercher un poste..."
-    value={searchTerm}
-    onChange={e => setSearchTerm(e.target.value)}
-    className="ps-5"
-  />
-  <BsSearch
-    style={{
-      position: 'absolute',
-      left: '15px',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      color: '#6c757d',
-      pointerEvents: 'none',
-    }}
-  />
-</InputGroup>
-
+      <InputGroup className='mb-3 position-relative'>
+        <Form.Control
+          type='text'
+          placeholder='Rechercher un poste...'
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+          className='ps-5'
+        />
+        <BsSearch
+          style={{
+            position: 'absolute',
+            left: '15px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            color: '#6c757d',
+            pointerEvents: 'none',
+          }}
+        />
+      </InputGroup>
 
       {/* Add Form */}
-      {role === 'service_formation' && ( <Form onSubmit={addForm.handleSubmit(handleAdd)} className='mb-3'>
-        <InputGroup>
-          <Form.Control
-            placeholder='Ajouter un poste '
-            {...addForm.register('poste')}
-            className={addForm.formState.errors.poste ? 'is-invalid' : ''}
-            disabled={loading}
-          />
-          <Button 
-            type='submit' 
-            className='action-button success' 
-            disabled={loading || !addForm.formState.isValid}
-          >
-            {loading ? <Spinner size='sm' /> : 'Ajouter'}
-          </Button>
-        </InputGroup>
-        {addForm.formState.errors.poste && (
-          <div className="text-danger small mt-1">
-            <i className="bi bi-exclamation-circle me-1"></i>
-            {addForm.formState.errors.poste.message}
-          </div>
-        )}
-      </Form>
+      {role === 'service_formation' && (
+        <Form onSubmit={addForm.handleSubmit(handleAdd)} className='mb-3'>
+          <InputGroup>
+            <Form.Control
+              placeholder='Ajouter un poste '
+              {...addForm.register('poste')}
+              className={addForm.formState.errors.poste ? 'is-invalid' : ''}
+              disabled={loading}
+            />
+            <Button
+              type='submit'
+              className='action-button success'
+              disabled={loading || !addForm.formState.isValid}
+            >
+              {loading ? <Spinner size='sm' /> : 'Ajouter'}
+            </Button>
+          </InputGroup>
+          {addForm.formState.errors.poste && (
+            <div className='text-danger small mt-1'>
+              <i className='bi bi-exclamation-circle me-1'></i>
+              {addForm.formState.errors.poste.message}
+            </div>
+          )}
+        </Form>
       )}
 
       {/* Error Alert */}
@@ -342,7 +340,7 @@ const PositionManagement = ({ role }) => {
                           disabled={loading}
                         />
                         <Button
-                          type="submit"
+                          type='submit'
                           className='action-button success'
                           size='sm'
                           disabled={loading || !editForm.formState.isValid}
@@ -350,7 +348,7 @@ const PositionManagement = ({ role }) => {
                           Sauvegarder
                         </Button>
                         <Button
-                          type="button"
+                          type='button'
                           className='action-button'
                           size='sm'
                           onClick={handleCancelEdit}
@@ -360,8 +358,8 @@ const PositionManagement = ({ role }) => {
                         </Button>
                       </InputGroup>
                       {editForm.formState.errors.poste && (
-                        <div className="text-danger small mt-1">
-                          <i className="bi bi-exclamation-circle me-1"></i>
+                        <div className='text-danger small mt-1'>
+                          <i className='bi bi-exclamation-circle me-1'></i>
                           {editForm.formState.errors.poste.message}
                         </div>
                       )}
@@ -403,9 +401,8 @@ const PositionManagement = ({ role }) => {
 
 // Main Structure Management Component
 const StructureManagement = ({ userInfo }) => {
-  
-  const allowedRoles = ['service_formation','admin','directeur_general'];
-  
+  const allowedRoles = ['service_formation', 'admin', 'directeur_general'];
+
   if (!userInfo) {
     return <Loader />;
   }
@@ -419,11 +416,17 @@ const StructureManagement = ({ userInfo }) => {
   return (
     <div className='main-content'>
       <div className='container-fluid'>
-        <h1 className='page-title' style={{ fontSize: '28px' }}>
-  <FaBuilding className='me-2' />
-  Gestion des structures
-</h1>
-
+        <h1
+          className='page-title font-semibold'
+          style={{
+            fontSize: '28px',
+            color: '#0a2463', // Bleu nuit intense
+            letterSpacing: '0.5px', // Espacement subtil pour l'élégance
+          }}
+        >
+          <FaBuilding className='me-2' style={{ verticalAlign: 'middle' }} />
+          Gestion des structures
+        </h1>
 
         <Card className='table-container'>
           <Card.Body>
@@ -437,7 +440,7 @@ const StructureManagement = ({ userInfo }) => {
                   </span>
                 }
               >
-                <DirectionManagement  role={userInfo.role} />
+                <DirectionManagement role={userInfo.role} />
               </Tab>
 
               <Tab

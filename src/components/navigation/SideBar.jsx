@@ -83,7 +83,7 @@ function SideBar(props) {
           name: 'Etablir le plan',
           icon: 'bi bi-pencil-square',
           path: '/Etablir-plan',
-          allowedRoles: ['admin', 'service_formation'],
+          allowedRoles: ['admin', 'service_formation','directeur_rh'],
         },
         {
           name: 'Valider le plan',

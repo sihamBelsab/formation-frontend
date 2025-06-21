@@ -200,15 +200,28 @@ const GestionPlanServiceFormation = ({ userInfo }) => {
           onClick: handleCreatePlan,
           variant: 'success',
         },
-        {
+        // {
+        //   label: 'Voir Détails',
+        //   icon: <FaEye className='me-1' />,
+        //   onClick: () => handleViewDetails(),
+        //   variant: 'info',
+        //   disabled: !(selectedPlans.length === 1),
+        // }
+      );
+    }
+    if (userInfo.role == 'service_formation','directeur_rh') {
+      actions.push(
+        
+           {
           label: 'Voir Détails',
-          icon: <FaEye className='me-1' />,
+           icon: <FaEye className='me-1' />,
           onClick: () => handleViewDetails(),
           variant: 'info',
           disabled: !(selectedPlans.length === 1),
-        }
-      );
+        },
+      )
     }
+
     if (selectedPlans.length === 1) {
       const selectedPlan = selectedPlans[0];
 
@@ -221,16 +234,23 @@ const GestionPlanServiceFormation = ({ userInfo }) => {
             onClick: () => handleAddFormation(),
             variant: 'primary',
           },
-          {
-            label: 'Soumettre',
-            icon: <FaPaperPlane className='me-1' />,
-            onClick: () => handleSubmitForValidation(),
-            variant: 'warning',
-          }
+          // {
+          //   label: 'Soumettre',
+          //   icon: <FaPaperPlane className='me-1' />,
+          //   onClick: () => handleSubmitForValidation(),
+          //   variant: 'warning',
+          // }
         );
       }
-
-      // Actions for rejected status
+      if (userInfo.role === 'directeur_rh') {
+    actions.push({
+      label: 'Soumettre',
+      icon: <FaPaperPlane className='me-1' />,
+      onClick: () => handleSubmitForValidation(),
+      variant: 'warning',
+    });
+  }
+        // Actions for rejected status
       if (selectedPlan.statut === 'rejeté' && userInfo.role == 'service_formation') {
         actions.push({
           label: 'Remettre en Brouillon',
@@ -249,7 +269,7 @@ const GestionPlanServiceFormation = ({ userInfo }) => {
     return <Loader />;
   }
 
-  if (!['service_formation', 'admin'].includes(userInfo.role)) {
+  if (!['service_formation', 'admin','directeur_rh'].includes(userInfo.role)) {
     return <Error message="Vous n'avez pas accès à cette page" showHomeLink={true} />;
   }
 
@@ -289,7 +309,7 @@ const GestionPlanServiceFormation = ({ userInfo }) => {
           columns={columns}
           loading={loading}
           actions={getActions()}
-          selectable={userInfo.role == 'service_formation'}
+          selectable={['service_formation', 'directeur_rh'].includes(userInfo.role)}
           selectedItems={selectedPlans.map(plan => plans.findIndex(p => p.id === plan.id))}
           onSelectionChange={handleSelectionChange}
           searchable={true}

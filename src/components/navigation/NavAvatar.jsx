@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import profileImg from '../../images/users.jpg';
+import profileImg from '/users.jpg';
 import { userApi } from '../../api'; // Updated to use new centralized API
 import ImageUpload from '../common/ImageUpload';
 

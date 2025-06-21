@@ -132,28 +132,31 @@ const PlanDetailsModal = ({
         <Button variant='secondary' onClick={onHide} disabled={loading}>
           Fermer
         </Button>
-        {plan.statut === 'brouillon' && plan.formations && plan.formations.length > 0 && (
-          <Button variant='primary' onClick={onSubmitForValidation} disabled={loading}>
-            {loading ? (
-              <>
-                <Spinner
-                  as='span'
-                  animation='border'
-                  size='sm'
-                  role='status'
-                  aria-hidden='true'
-                  className='me-2'
-                />
-                Soumission...
-              </>
-            ) : (
-              <>
-                <FaPaperPlane className='me-1' />
-                Soumettre pour Validation
-              </>
-            )}
-          </Button>
-        )}
+        {plan.statut === 'brouillon' &&
+          plan.formations &&
+          plan.formations.length > 0 &&
+          userInfo.role == 'directeur_rh' && (
+            <Button variant='primary' onClick={onSubmitForValidation} disabled={loading}>
+              {loading ? (
+                <>
+                  <Spinner
+                    as='span'
+                    animation='border'
+                    size='sm'
+                    role='status'
+                    aria-hidden='true'
+                    className='me-2'
+                  />
+                  Soumission...
+                </>
+              ) : (
+                <>
+                  <FaPaperPlane className='me-1' />
+                  Soumettre pour Validation
+                </>
+              )}
+            </Button>
+          )}
       </Modal.Footer>
     </Modal>
   );

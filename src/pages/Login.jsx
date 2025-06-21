@@ -49,7 +49,7 @@ const Login = () => {
   return (
     <div className='login-page d-flex vh-100'>
       <div className='logo-container'>
-        <img src='./src/images/logocev.png' alt='Logo' className='logo' />
+        <img src='/logocev.png' alt='Logo' className='logo' />
       </div>
 
       <div className='login-form-section col-md-6 col-12 d-flex flex-column justify-content-center align-items-center px-5'>

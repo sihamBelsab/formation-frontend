@@ -48,27 +48,54 @@ const statCards = [
 
 const additionalStats = [
   {
-    icon: <FaClipboardList size={16} color='white' />,
-    iconBg: 'var(--success)',
-    title: 'Besoins de Formation',
-    valueKey: 'trainingNeeds',
-    titleFontSize: '1rem',
-    valueMarginTop: '1.25rem',
-    iconBoxSize: 28,
-  },
+  icon: (
+    <div 
+      className="flex items-center justify-center rounded-md p-1.5"
+      style={{
+        backgroundColor: 'rgb(20, 52, 128)', // Bleu nuit
+        width: '30px',
+        height: '30px',
+        borderRadius: '6px', // Arrondi des bords (équivalent à rounded-sm)
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      <FaClipboardList size={16} color="white" /> {/* Icône blanche */}
+    </div>
+  ),
+  title: 'Besoins de Formation',
+  valueKey: 'trainingNeeds',
+  titleFontSize: '1.20rem',
+  valueMarginTop: '1rem',
+  iconBoxSize: 30,
+}, 
   {
-    icon: <FaBuilding size={16} color='white' />,
-    iconBg: 'var(--info)',
-    title: 'Directions',
-    valueKey: 'directions',
-    titleFontSize: '1rem',
-    valueMarginTop: '1.25rem',
-    iconBoxSize: 28,
-  },
+  icon: (
+    <div 
+      className="flex items-center justify-center"
+      style={{
+        backgroundColor: 'rgb(20, 52, 128)', // Même bleu nuit
+        width: '30px',
+        height: '30px',
+        borderRadius: '6px', // Arrondi identique
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      <FaBuilding size={16} color="white" /> {/* Icône blanche */}
+    </div>
+  ),
+  title: 'Directions',
+  valueKey: 'directions',
+   titleFontSize: '1.20rem',
+  valueMarginTop: '1rem',
+  iconBoxSize: 30,
+},
 ];
 
 const Dashboard = ({ userInfo }) => {
-
   const {
     stats,
     employeeDistribution,
@@ -119,7 +146,7 @@ const Dashboard = ({ userInfo }) => {
       </div>
     );
   }
-    console.log(userInfo);
+  console.log(userInfo);
   const allowedRoles = ['service_formation', 'directeur_rh', 'directeur_general', 'admin'];
   if (!allowedRoles.includes(userInfo.role)) {
     if (userInfo.role === 'employe') {
@@ -130,25 +157,31 @@ const Dashboard = ({ userInfo }) => {
     }
     return <Navigate to='/' />;
   }
-  
 
   return (
     <div className='container-fluid dashboard-container'>
       {/* Header with refresh button */}
       <div className='dashboard-header'>
-        <h2 className='text-primary'>
+        <h2 style={{ color: '#0a2463', fontWeight: 600 }}>
           <i className='bi bi-speedometer2 me-2'></i>
           Tableau de Bord
         </h2>
-        <button className='btn btn-outline-primary btn-sm' onClick={refreshData} disabled={loading}>
+        <button
+          className='btn btn-outline-primary btn-sm'
+          onClick={refreshData}
+          disabled={loading}
+          style={{
+            borderColor: '#0a2463', // Bleu nuit
+            color: '#0a2463', // Texte bleu nuit (optionnel)
+          }}
+        >
           <LuRefreshCcw className='me-2' />
-          Actualiser
         </button>
       </div>
 
       <Row className='my-4 dashboard-row'>
-        {statCards.map((card) => (
-          <Col xl={3} lg={6} md={6} sm={12}  key={card.title}>
+        {statCards.map(card => (
+          <Col xl={3} lg={6} md={6} sm={12} key={card.title}>
             <StatCard
               icon={card.icon}
               title={card.title}
@@ -162,8 +195,8 @@ const Dashboard = ({ userInfo }) => {
       </Row>
 
       <Row className=' dashboard-row mb-4'>
-        {additionalStats.map((card) => (
-                                  <Col lg={6} md={12} className=' flex-column '>
+        {additionalStats.map(card => (
+          <Col lg={6} md={12} className=' flex-column '>
             <Card className='shadow-sm dashboard-card' key={card.title}>
               <Card.Body className='d-flex align-items-start'>
                 <div
@@ -191,16 +224,14 @@ const Dashboard = ({ userInfo }) => {
                   </Card.Text>
                 </div>
               </Card.Body>
-          </Card>
-                  </Col>
-
+            </Card>
+          </Col>
         ))}
-
       </Row>
 
       {/* Charts Section */}
       <Row className=' dashboard-row mb-4'>
-        <Col lg={6} md={12} >
+        <Col lg={6} md={12}>
           {formationData.length > 0 ? (
             <BarFormation data={formationData} title='Répartition des formations par catégorie' />
           ) : (
@@ -210,9 +241,8 @@ const Dashboard = ({ userInfo }) => {
           )}
         </Col>
 
-        <Col lg={6} md={12} >
-                   <DonutChartCSP data={employeesByGrade} title='Répartition des Employés par Grade' />
-
+        <Col lg={6} md={12}>
+          <DonutChartCSP data={employeesByGrade} title='Répartition des Employés par Grade' />
         </Col>
       </Row>
 
