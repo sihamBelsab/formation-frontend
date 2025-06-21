@@ -1,0 +1,146 @@
+/* Table.css */
+
+/* Conteneur principal */
+.table-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Titre de la table */
+.table-container h4 {
+  color: #254a67;
+  font-weight: 600;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Boutons */
+.table-container .btn {
+  background-color: #ffffff;
+  color: #254a67;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 6px 12px;
+  box-shadow: 2px 2px 4px rgba(31, 24, 24, 0.1);
+  transition: background-color 0.3s;
+  border: 2px solid #11597e;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.table-container .btn:hover {
+  background-color: #f0f0f0;
+  color: #11597e;
+}
+
+/* Bouton Export */
+.table-container .btn-outline-success {
+  color: #254a67;
+  border-color: #11597e;
+}
+
+.table-container .btn-outline-success:hover {
+  background-color: #11597e;
+  color: white;
+}
+
+/* Icônes */
+.table-container svg {
+  color: #00008B;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+/* En-tête de table */
+.table-container .table-primary th {
+  background-color: #dce1e9;
+  color: #254a67;
+  font-weight: bold;
+  padding: 3px;
+  line-height: 1;
+  height: 20px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+/* Cellules de table */
+.table-container td {
+  vertical-align: middle;
+  color: #2D499B;
+  font-size: 13px;
+  padding: 8px;
+}
+
+/* Lignes survolées */
+.table-container .table-hover tbody tr:hover {
+  background-color: rgba(220, 225, 233, 0.3);
+}
+
+/* Lignes sélectionnées */
+.table-container .table-warning {
+  background-color: #fff8e1;
+}
+
+/* Pagination */
+.table-container .pagination {
+  margin: 0;
+}
+
+.table-container .page-item.active .page-link {
+  background-color: #254a67;
+  border-color: #254a67;
+}
+
+.table-container .page-link {
+  color: #254a67;
+  font-size: 13px;
+}
+
+/* Barre de recherche */
+.table-container .form-control {
+  font-size: 13px;
+  border: 1px solid #dce1e9;
+  border-radius: 5px;
+}
+
+/* Message vide */
+.table-container .text-muted {
+  color: #6c757d;
+  font-size: 13px;
+}
+
+/* Statistiques */
+.table-container small.text-muted {
+  font-size: 12px;
+}
+
+/* Sélecteur de page */
+.table-container .form-select {
+  font-size: 13px;
+  border: 1px solid #dce1e9;
+  border-radius: 5px;
+}
+
+/* Tri */
+.table-container .text-muted {
+  opacity: 0.5;
+}
+/* Dans votre CSS */
+.text-custom-blue {
+  color: #254a67;
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .table-container .d-flex {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .table-container .pagination {
+    margin-top: 10px;
+  }
+}

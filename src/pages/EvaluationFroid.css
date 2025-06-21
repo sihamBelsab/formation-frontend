@@ -1,0 +1,75 @@
+/* Styles globaux */
+.modern-input, 
+.modern-select,
+.modern-textarea {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+
+.modern-input:focus, 
+.modern-select:focus,
+.modern-textarea:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 0.25rem rgba(58, 124, 165, 0.25);
+}
+
+.modern-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%233a7ca5' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+/* Icônes */
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Étoiles de notation */
+.star-rating {
+  cursor: pointer;
+  margin: 0 5px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.star-rating:hover {
+  transform: scale(1.2);
+}
+
+/* Sections de formulaire */
+.modern-form-section {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* Cartes */
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Tableau */
+.table-hover tbody tr:hover {
+  background-color: rgba(58, 124, 165, 0.05);
+}
+
+/* Boutons */
+.btn {
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.rounded-pill {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}

@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  align-items: center; /* Assurez-vous que tous les éléments sont alignés horizontalement */
+  justify-content: space-between; /* Si tu veux espacer les éléments (Logo, Search, Nav) */
+  position: fixed; /* Make navbar sticky */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 997;
+  height: 60px;
+  box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+  background-color: #fff;
+  padding-left: 20px;
+}
+
+/*searchbox*/
+/*toggle sidebare*/
+.header .bi-text-indent-left {
+  font-size: 25px;
+  padding-left: 10px;
+  cursor: pointer;
+  color: #012970 !important;
+}

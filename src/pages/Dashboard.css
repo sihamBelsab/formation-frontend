@@ -1,0 +1,298 @@
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.dashboard-row {
+  padding: 0 1rem;
+}
+
+/* Wide screen optimizations */
+@media (min-width: 1400px) {
+  .dashboard-header,
+  .dashboard-row,
+  .dashboard-no-data {
+    padding: 0 4rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .dashboard-header,
+  .dashboard-row,
+  .dashboard-no-data {
+    padding: 0 6rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .dashboard-header,
+  .dashboard-row,
+  .dashboard-no-data {
+    padding: 0 8rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  .dashboard-header,
+  .dashboard-row,
+  .dashboard-no-data {
+    padding: 0 12rem;
+  }
+}
+
+.dashboard-card {
+  border-radius: 10px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  min-height: 120px;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-iconbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  margin-right: 15px;
+  margin-top: 10px;
+}
+
+.dashboard-card-title {
+  color: #777777;
+  font-family: 'Verdana, sans-serif';
+  font-weight: normal;
+  padding-top: 10px;
+}
+
+.dashboard-card-value {
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.dashboard-no-data {
+  padding: 0 1rem;
+  margin-top: 20px;
+}
+
+/* Dashboard container constraints for better UX on wide screens */
+.dashboard-container {
+  margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .dashboard-header h2 {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header,
+  .dashboard-row,
+  .dashboard-no-data {
+    padding: 0 0.5rem;
+  }
+
+  .dashboard-header {
+    margin-bottom: 1rem;
+  }
+
+  .dashboard-card {
+    min-height: 100px;
+  }
+
+  .dashboard-card-value {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+
+  .dashboard-iconbox {
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .dashboard-header,
+  .dashboard-row,
+  .dashboard-no-data {
+    padding: 0 0.25rem;
+  }
+
+  .dashboard-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .dashboard-card-title {
+    font-size: 14px;
+  }
+
+  .dashboard-card-value {
+    font-size: 18px;
+    margin-left: 5px;
+  }
+
+  .dashboard-iconbox {
+    width: 24px !important;
+    height: 24px !important;
+    margin-right: 8px;
+  }
+}
+
+/* SatisfactionTable specific responsive styles */
+@media (max-width: 768px) {
+  .dashboard-card .card-body h5 {
+    font-size: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .dashboard-card .card-body > div > div:first-child span:first-child {
+    font-size: 0.85rem !important;
+  }
+
+  .dashboard-card .card-body > div > div:first-child span:last-child {
+    font-size: 0.8rem !important;
+    min-width: 40px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .dashboard-card .card-body {
+    padding: 1rem !important;
+  }
+
+  .dashboard-card .card-body h5 {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .dashboard-card .card-body > div {
+    margin-bottom: 0.75rem !important;
+  }
+
+  .dashboard-card .card-body > div > div:first-child {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 0.25rem;
+  }
+
+  .dashboard-card .card-body > div > div:first-child span:first-child {
+    font-size: 0.8rem !important;
+    margin-right: 0 !important;
+  }
+
+  .dashboard-card .card-body > div > div:first-child span:last-child {
+    font-size: 0.75rem !important;
+    align-self: flex-end;
+  }
+
+  .dashboard-card .card-body > div > div:last-child {
+    height: 10px !important;
+  }
+}
+
+/* DonutChartCSP responsive styles */
+.donut-chart-card {
+  height: 450px !important;
+}
+
+@media (max-width: 1200px) {
+  .donut-chart-card {
+    height: 400px !important;
+  }
+
+  .donut-chart-container .card-body > div {
+    height: 300px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  /* Stack chart and legend vertically on tablets */
+  .donut-chart-container .card-body > div {
+    flex-direction: column !important;
+    align-items: center !important;
+    height: auto !important;
+    gap: 20px !important;
+  }
+
+  .donut-chart-container .card-body > div > div:first-child {
+    flex: none !important;
+    width: 300px !important;
+    height: 300px !important;
+    min-width: 300px !important;
+  }
+
+  .donut-chart-container .card-body > div > div:last-child {
+    flex: none !important;
+    padding-left: 0 !important;
+    width: 100%;
+    text-align: center;
+  }
+
+  .donut-chart-card {
+    height: auto !important;
+    min-height: 500px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .donut-chart-container .card-body > div > div:first-child {
+    width: 250px !important;
+    height: 250px !important;
+    min-width: 250px !important;
+  }
+
+  .donut-chart-card {
+    min-height: 450px !important;
+  }
+
+  /* Smaller legend text */
+  .donut-chart-container .card-body > div > div:last-child > div {
+    font-size: 12px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .donut-chart-container .card-body > div > div:last-child > div > div {
+    width: 10px !important;
+    height: 10px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .donut-chart-container .card-body > div > div:first-child {
+    width: 200px !important;
+    height: 200px !important;
+    min-width: 200px !important;
+  }
+
+  .donut-chart-card {
+    min-height: 400px !important;
+  }
+
+  /* Even smaller legend */
+  .donut-chart-container .card-body > div > div:last-child > div {
+    font-size: 11px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .donut-chart-container .card-body > div > div:last-child > div span {
+    font-size: 11px !important;
+  }
+}
