@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './error.css'; // We'll create this CSS file
+import './Error.css'; // We'll create this CSS file
 
 function Error({ message = "Une erreur s'est produite", showHomeLink = true }) {
   return (
