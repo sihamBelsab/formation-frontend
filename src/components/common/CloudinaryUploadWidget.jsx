@@ -54,7 +54,7 @@ const CloudinaryUploadWidget = ({ uwConfig, setPublicId, userId, setImageUrl }) 
 
   return (
     <button ref={uploadButtonRef} id='upload_widget' className='cloudinary-button'>
-      Upload
+      Importer 
     </button>
   );
 };

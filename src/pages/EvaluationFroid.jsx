@@ -575,9 +575,9 @@ function EvaluationFroid({ userInfo }) {
             columns={columns}
             loading={loading}
             searchable={true}
-            searchPlaceholder='Search evaluations...'
-            emptyMessage='No evaluations found'
-            loadingMessage='Loading evaluations...'
+            searchPlaceholder='Rechercher'
+            emptyMessage='Aucune evaluation trouvé'
+            loadingMessage='Chragement...'
             hover={true}
             striped={true}
             responsive={true}

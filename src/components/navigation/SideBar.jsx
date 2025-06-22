@@ -80,7 +80,7 @@ function SideBar(props) {
       allowedRoles: ['admin', 'service_formation', 'directeur_general', 'directeur_rh'],
       innerItems: [
         {
-          name: 'Etablir le plan',
+          name: 'Plan',
           icon: 'bi bi-pencil-square',
           path: '/Etablir-plan',
           allowedRoles: ['admin', 'service_formation','directeur_rh'],
@@ -89,7 +89,7 @@ function SideBar(props) {
           name: 'Valider le plan',
           icon: 'bi bi-file-check',
           path: '/valider-plan',
-          allowedRoles: ['directeur_rh', 'directeur_general'],
+          allowedRoles: [ 'directeur_general'],
         },
       ],
     },

@@ -79,7 +79,7 @@ function NavAvatar({ userInfo, setUserInfo }) {
               onClick={handleProfileClick}
             >
               <i className='bi bi-person'></i>
-              <span className='ms-2'>My profile</span>
+              <span className='ms-2'>Mon Profil</span>
             </button>
           </li>
 
@@ -90,7 +90,7 @@ function NavAvatar({ userInfo, setUserInfo }) {
           <li>
             <button className='dropdown-item d-flex align-items-center' onClick={logOut}>
               <i className='bi bi-box-arrow-right'></i>
-              <span className='ms-2'>Sign out</span>
+              <span className='ms-2'> Se déconnecter</span>
             </button>
           </li>
         </ul>

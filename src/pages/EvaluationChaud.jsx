@@ -1,6 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form, Button, Row, Col, Card, Alert, ProgressBar, Modal, Badge } from 'react-bootstrap';
-import { FaStar, FaCheckCircle, FaUserTie, FaCalendarAlt, FaBuilding, FaChevronRight, FaInfoCircle, FaEye } from 'react-icons/fa';
+import {
+  Container,
+  Form,
+  Button,
+  Row,
+  Col,
+  Card,
+  Alert,
+  ProgressBar,
+  Modal,
+  Badge,
+} from 'react-bootstrap';
+import {
+  FaStar,
+  FaCheckCircle,
+  FaUserTie,
+  FaCalendarAlt,
+  FaBuilding,
+  FaChevronRight,
+  FaInfoCircle,
+  FaEye,
+} from 'react-icons/fa';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import './EvaluationChaud.css';
@@ -9,32 +29,32 @@ import { trainingApi } from '../api';
 import Table from '../components/common/Table';
 
 const questions = {
-  "Objectifs, contenu et méthodologie": [
-    "Les objectifs de la formation étaient clairs et précis",
-    "Le contenu répondait bien à mes besoins",
-    "Il y avait un bon équilibre entre la théorie et la pratique",
-    "La documentation est de qualité et me sera utile",
-    "Les méthodes et techniques utilisées ont facilité mon apprentissage"
+  'Objectifs, contenu et méthodologie': [
+    'Les objectifs de la formation étaient clairs et précis',
+    'Le contenu répondait bien à mes besoins',
+    'Il y avait un bon équilibre entre la théorie et la pratique',
+    'La documentation est de qualité et me sera utile',
+    'Les méthodes et techniques utilisées ont facilité mon apprentissage',
   ],
-  "Le formateur": [
-    "Communiquait de façon claire",
+  'Le formateur': [
+    'Communiquait de façon claire',
     "A été attentif et a su s'adapter au groupe",
-    "A favorisé les échanges et la participation du groupe",
-    "A suscité mon intérêt à la session de la formation"
+    'A favorisé les échanges et la participation du groupe',
+    'A suscité mon intérêt à la session de la formation',
   ],
-  "Organisation": [
-    "La durée de la formation était suffisante",
-    "Le local pédagogique était approprié",
-    "Les moyens pédagogiques utilisés étaient de qualité"
+  Organisation: [
+    'La durée de la formation était suffisante',
+    'Le local pédagogique était approprié',
+    'Les moyens pédagogiques utilisés étaient de qualité',
   ],
-  "Acquis et transfert des apprentissages": [
+  'Acquis et transfert des apprentissages': [
     "J'ai compris et intégré la majorité du contenu de la session",
-    "Les connaissances acquises peuvent être directement appliquées dans mon travail"
+    'Les connaissances acquises peuvent être directement appliquées dans mon travail',
   ],
-  "Appréciation générale": [
-    "De façon générale, je suis satisfait(e) de la formation reçue",
-    "Je recommanderais à d'autres de suivre cette formation"
-  ]
+  'Appréciation générale': [
+    'De façon générale, je suis satisfait(e) de la formation reçue',
+    "Je recommanderais à d'autres de suivre cette formation",
+  ],
 };
 
 const EvaluationChaud = ({ userInfo }) => {
@@ -45,7 +65,7 @@ const EvaluationChaud = ({ userInfo }) => {
   const [success, setSuccess] = useState(false);
   const [formDetails, setFormDetails] = useState({
     formateur: '',
-    organisme: ''
+    organisme: '',
   });
   const [ratings, setRatings] = useState({});
   const [currentSection, setCurrentSection] = useState(0);
@@ -60,13 +80,13 @@ const EvaluationChaud = ({ userInfo }) => {
       try {
         const [formationsResponse, evaluationsResponse] = await Promise.all([
           trainingApi.getCompletedTrainings(),
-          evaluationChaudApi.getEvaluationsByEmployee()
+          evaluationChaudApi.getEvaluationsByEmployee(),
         ]);
-        
+
         if (formationsResponse.status === 200) {
           setFormations(formationsResponse.data.data);
         }
-        
+
         if (evaluationsResponse.success) {
           console.log('Evaluations data:', evaluationsResponse.data);
           // Transform the data to include formation details
@@ -76,7 +96,7 @@ const EvaluationChaud = ({ userInfo }) => {
             intitule: evaluation.formation?.intitule || evaluation.intitule,
             date_evaluation: evaluation.date_evaluation || evaluation.created_at,
             formateur_nom: evaluation.formation?.formateur_nom || evaluation.formateur_nom,
-            lieu_libelle: evaluation.formation?.lieu_libelle || evaluation.lieu_libelle
+            lieu_libelle: evaluation.formation?.lieu_libelle || evaluation.lieu_libelle,
           }));
           setUserEvaluations(evaluationsWithDetails);
         }
@@ -88,13 +108,13 @@ const EvaluationChaud = ({ userInfo }) => {
     fetchData();
   }, []);
 
-  const handleFormationSelect = (selected) => {
+  const handleFormationSelect = selected => {
     setSelectedFormation(selected);
     if (selected && selected.length > 0) {
       const formation = selected[0];
       setFormDetails({
         formateur: formation.formateur_nom || '',
-        organisme: formation.lieu_libelle || ''
+        organisme: formation.lieu_libelle || '',
       });
 
       // Check if user has already evaluated this formation
@@ -105,7 +125,7 @@ const EvaluationChaud = ({ userInfo }) => {
     } else {
       setFormDetails({
         formateur: '',
-        organisme: ''
+        organisme: '',
       });
       setPreviousEvaluation(null);
     }
@@ -114,7 +134,7 @@ const EvaluationChaud = ({ userInfo }) => {
   const handleRatingChange = (question, value) => {
     setRatings(prev => ({
       ...prev,
-      [question]: value
+      [question]: value,
     }));
   };
 
@@ -127,7 +147,7 @@ const EvaluationChaud = ({ userInfo }) => {
     return (average * 20).toFixed(2);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (!selectedFormation) {
       setError('Please select a formation');
@@ -151,7 +171,7 @@ const EvaluationChaud = ({ userInfo }) => {
     try {
       await evaluationChaudApi.createEvaluation({
         id_formation: selectedFormation[0].id_formation,
-        note: parseFloat(averagePercentage)
+        note: parseFloat(averagePercentage),
       });
 
       setSuccess(true);
@@ -168,17 +188,17 @@ const EvaluationChaud = ({ userInfo }) => {
 
   const renderStarRating = (question, value) => {
     return (
-      <div className="mb-3">
+      <div className='mb-3'>
         <Form.Label>{question}</Form.Label>
-        <div className="d-flex gap-2">
-          {[1, 2, 3, 4, 5].map((star) => (
+        <div className='d-flex gap-2'>
+          {[1, 2, 3, 4, 5].map(star => (
             <Button
               key={star}
               variant={value >= star ? 'warning' : 'outline-warning'}
               onClick={() => handleRatingChange(question, star)}
-              className="p-2"
+              className='p-2'
             >
-              <i className="bi bi-star-fill"></i>
+              <i className='bi bi-star-fill'></i>
             </Button>
           ))}
         </div>
@@ -186,32 +206,47 @@ const EvaluationChaud = ({ userInfo }) => {
     );
   };
 
-  const renderTypeahead = (label, field, options = [], placeholder = "", selected = [], onChange = () => {}) => (
-    <Form.Group className="mb-4">
-      <Form.Label className="form-label">{label}</Form.Label>
+  const renderTypeahead = (
+    label,
+    field,
+    options = [],
+    placeholder = '',
+    selected = [],
+    onChange = () => {}
+  ) => (
+    <Form.Group className='mb-4'>
+      <Form.Label className='form-label'>{label}</Form.Label>
       <Typeahead
         id={`${field}-typeahead`}
-        labelKey={(item) => item.besoin?.titre || item.theme || item.nom || item.intitule}
+        labelKey={item => item.besoin?.titre || item.theme || item.nom || item.intitule}
         options={options}
         placeholder={placeholder}
         selected={selected}
         onChange={onChange}
-        className="modern-typeahead"
+        className='modern-typeahead'
       />
     </Form.Group>
   );
 
-  const renderTextInput = (label, name, placeholder = "", type = "text", icon = null, disabled = false, value = "") => (
-    <Form.Group className="mb-4">
-      <Form.Label className="form-label">{label}</Form.Label>
-      <div className="input-with-icon">
-        {icon && <span className="input-icon">{icon}</span>}
+  const renderTextInput = (
+    label,
+    name,
+    placeholder = '',
+    type = 'text',
+    icon = null,
+    disabled = false,
+    value = ''
+  ) => (
+    <Form.Group className='mb-4'>
+      <Form.Label className='form-label'>{label}</Form.Label>
+      <div className='input-with-icon'>
+        {icon && <span className='input-icon'>{icon}</span>}
         <Form.Control
           type={type}
           name={name}
           placeholder={placeholder}
           value={value}
-          className="modern-input"
+          className='modern-input'
           disabled={disabled}
         />
       </div>
@@ -223,39 +258,52 @@ const EvaluationChaud = ({ userInfo }) => {
     const progress = ((currentSection + 1) / sections.length) * 100;
 
     return (
-      <div className="question-section">
-        <div className="section-header mb-4">
-          <h4 className="section-title">{sectionTitle}</h4>
-          <ProgressBar now={progress} className="section-progress" />
-          <div className="progress-text">
+      <div className='question-section'>
+        <div className='section-header mb-4'>
+          <h4 className='section-title'>{sectionTitle}</h4>
+          <ProgressBar now={progress} className='section-progress' />
+          <div className='progress-text'>
             Étape {currentSection + 1} sur {sections.length}
           </div>
         </div>
 
-        <div className="questions-grid">
+        <div className='questions-grid'>
           {questionsList.map((question, index) => (
-            <Card key={index} className="question-card">
+            <Card key={index} className='question-card'>
               <Card.Body>
-                <h5 className="question-text">{question}</h5>
+                <h5 className='question-text'>{question}</h5>
                 {renderStarRating(question, ratings[question])}
               </Card.Body>
             </Card>
           ))}
         </div>
 
-        <div className="navigation-buttons">
+        <div className='navigation-buttons'>
           {currentSection > 0 && (
-            <Button variant="outline-primary" onClick={() => setCurrentSection(currentSection - 1)} className="nav-button">
+            <Button
+              variant='outline-primary'
+              onClick={() => setCurrentSection(currentSection - 1)}
+              className='nav-button'
+            >
               Précédent
             </Button>
           )}
           {currentSection < sections.length - 1 ? (
-            <Button variant="primary" onClick={() => setCurrentSection(currentSection + 1)} className="nav-button next-button">
+            <Button
+              variant='primary'
+              onClick={() => setCurrentSection(currentSection + 1)}
+              className='nav-button next-button'
+            >
               Suivant <FaChevronRight />
             </Button>
           ) : (
-            <Button variant="success" type="submit" className="nav-button submit-button" disabled={loading || !selectedFormation}>
-              {loading ? 'Soumission...' : 'Soumettre l\'évaluation'}
+            <Button
+              variant='success'
+              type='submit'
+              className='nav-button submit-button'
+              disabled={loading || !selectedFormation}
+            >
+              {loading ? 'Soumission...' : "Soumettre l'évaluation"}
             </Button>
           )}
         </div>
@@ -267,22 +315,23 @@ const EvaluationChaud = ({ userInfo }) => {
     if (!previousEvaluation) return null;
 
     return (
-      <Card className="mt-4">
-        <Card.Header className="bg-info text-white">
-          <h5 className="mb-0">
-            <FaInfoCircle className="me-2" />
+      <Card className='mt-4'>
+        <Card.Header className='bg-info text-white'>
+          <h5 className='mb-0'>
+            <FaInfoCircle className='me-2' />
             Évaluation précédente
           </h5>
         </Card.Header>
         <Card.Body>
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h6 className="mb-0">Note moyenne:</h6>
-            <div className="evaluation-score">
-              <span className="score-value">{previousEvaluation.note}%</span>
+          <div className='d-flex justify-content-between align-items-center mb-3'>
+            <h6 className='mb-0'>Note moyenne:</h6>
+            <div className='evaluation-score'>
+              <span className='score-value'>{previousEvaluation.note}%</span>
             </div>
           </div>
-          <Alert variant="info" className="mb-0">
-            Vous avez déjà évalué cette formation. Si vous souhaitez modifier votre évaluation, veuillez contacter l'administrateur.
+          <Alert variant='info' className='mb-0'>
+            Vous avez déjà évalué cette formation. Si vous souhaitez modifier votre évaluation,
+            veuillez contacter l'administrateur.
           </Alert>
         </Card.Body>
       </Card>
@@ -291,34 +340,34 @@ const EvaluationChaud = ({ userInfo }) => {
 
   // Table columns configuration
   const columns = [
-    { 
-      key: 'formation', 
+    {
+      key: 'formation',
       label: 'Formation',
-      render: (value, row) => row.theme || row.intitule || 'N/A'
+      render: (value, row) => row.theme || row.intitule || 'N/A',
     },
 
-    { 
-      key: 'note', 
+    {
+      key: 'note',
       label: 'Note',
-      render: (value) => `${value}%`
+      render: value => `${value}%`,
     },
     {
       key: 'actions',
       label: 'Actions',
       render: (value, row) => (
         <Button
-          variant="info"
-          size="sm"
+          variant='info'
+          size='sm'
           onClick={() => {
             setSelectedEvaluation(row);
             setShowDetailModal(true);
           }}
         >
-          <FaEye className="me-1" />
+          <FaEye className='me-1' />
           View Details
         </Button>
-      )
-    }
+      ),
+    },
   ];
 
   // Evaluation Detail Modal Component
@@ -326,29 +375,47 @@ const EvaluationChaud = ({ userInfo }) => {
     if (!evaluation) return null;
 
     return (
-      <Modal show={show} onHide={onHide} size="lg" centered>
+      <Modal show={show} onHide={onHide} size='lg' centered>
         <Modal.Header closeButton>
           <Modal.Title>Evaluation Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row className="mb-3">
+          <Row className='mb-3'>
             <Col md={6}>
               <h6>Formation Information</h6>
-              <p><strong>Formation:</strong> {evaluation.theme || 'N/A'}</p>
-              <p><strong>Date:</strong> {evaluation.date_debut ? new Date(evaluation.date_debut).toLocaleDateString() : 'N/A'}</p>
-              <p><strong>Date de fin:</strong> {evaluation.date_fin ? new Date(evaluation.date_fin).toLocaleDateString() : 'N/A'}</p>
-              <p><strong>Lieu:</strong> {evaluation.lieu_libelle || 'N/A'}</p>
+              <p>
+                <strong>Formation:</strong> {evaluation.theme || 'N/A'}
+              </p>
+              <p>
+                <strong>Date:</strong>{' '}
+                {evaluation.date_debut
+                  ? new Date(evaluation.date_debut).toLocaleDateString()
+                  : 'N/A'}
+              </p>
+              <p>
+                <strong>Date de fin:</strong>{' '}
+                {evaluation.date_fin ? new Date(evaluation.date_fin).toLocaleDateString() : 'N/A'}
+              </p>
+              <p>
+                <strong>Lieu:</strong> {evaluation.lieu_libelle || 'N/A'}
+              </p>
             </Col>
             <Col md={6}>
               <h6>Evaluation Details</h6>
-              <p><strong>Note:</strong> {evaluation.note}%</p>
-              <p><strong>Formateur:</strong> {evaluation.formateur_nom || 'N/A'}</p>
-              <p><strong>Organisme:</strong> {evaluation.lieu_libelle || 'N/A'}</p>
+              <p>
+                <strong>Note:</strong> {evaluation.note}%
+              </p>
+              <p>
+                <strong>Formateur:</strong> {evaluation.formateur_nom || 'N/A'}
+              </p>
+              <p>
+                <strong>Organisme:</strong> {evaluation.lieu_libelle || 'N/A'}
+              </p>
             </Col>
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={onHide}>
+          <Button variant='secondary' onClick={onHide}>
             Close
           </Button>
         </Modal.Footer>
@@ -357,20 +424,20 @@ const EvaluationChaud = ({ userInfo }) => {
   };
 
   return (
-    <Container className="evaluation-container">
+    <Container className='evaluation-container'>
       {/* Evaluation History Table */}
-      <Card className="mb-4 border-0 shadow-sm">
-        <Card.Header 
-          className="py-3" 
-          style={{ 
+      <Card className='mb-4 border-0 shadow-sm'>
+        <Card.Header
+          className='py-3'
+          style={{
             backgroundColor: '#dce1e9',
             color: '#254a67',
           }}
         >
-          <div className="d-flex justify-content-between align-items-center">
-            <h5 className="mb-0"> Evaluations</h5>
-            <Badge pill bg="light" text="dark" className="px-3 py-2">
-              <FaEye className="me-1" /> History
+          <div className='d-flex justify-content-between align-items-center'>
+            <h5 className='mb-0'> Evaluations</h5>
+            <Badge pill bg='light' text='dark' className='px-3 py-2'>
+              <FaEye className='me-1' /> History
             </Badge>
           </div>
         </Card.Header>
@@ -380,9 +447,9 @@ const EvaluationChaud = ({ userInfo }) => {
             columns={columns}
             loading={loading}
             searchable={true}
-            searchPlaceholder="Search evaluations..."
-            emptyMessage="No evaluations found"
-            loadingMessage="Loading evaluations..."
+            searchPlaceholder='Rechrcher...'
+            emptyMessage='Aucune evaluation trouvé '
+            loadingMessage='Chargement....'
             hover={true}
             striped={true}
             responsive={true}
@@ -390,48 +457,51 @@ const EvaluationChaud = ({ userInfo }) => {
         </Card.Body>
       </Card>
 
-      <Card className="evaluation-card">
-        <Card.Header className="evaluation-header">
-          <h2 className="text-center mb-0">Évaluation Pédagogique – À Chaud</h2>
-          <p className="text-center text-muted">Ce module permet de recueillir vos retours afin d’optimiser la pertinence et la qualité des formations proposées.</p>
+      <Card className='evaluation-card'>
+        <Card.Header className='evaluation-header'>
+          <h2 className='text-center mb-0'>Évaluation Pédagogique </h2>
+          <p className='text-center text-white'>
+            Ce module permet de recueillir vos retours afin d’optimiser la pertinence et la qualité
+            des formations proposées.
+          </p>
         </Card.Header>
-        
+
         <Card.Body>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {success && <Alert variant="success">Évaluation soumise avec succès!</Alert>}
-          
+          {error && <Alert variant='danger'>{error}</Alert>}
+          {success && <Alert variant='success'>Évaluation soumise avec succès!</Alert>}
+
           <Form onSubmit={handleSubmit}>
             <Row>
               <Col lg={6}>
                 {renderTypeahead(
-                  "Formation", 
-                  "formation", 
-                  formations, 
-                  "Choisir une formation...", 
-                  selectedFormation, 
+                  'Formation',
+                  'formation',
+                  formations,
+                  'Choisir une formation...',
+                  selectedFormation,
                   handleFormationSelect
                 )}
               </Col>
               <Col lg={6}>
                 {renderTextInput(
-                  "Nom et Prénom", 
-                  "nomPrenom", 
+                  'Nom et Prénom',
+                  'nomPrenom',
                   `${userInfo.prenom} ${userInfo.nom}`,
-                  "text",
+                  'text',
                   <FaUserTie />,
                   true,
                   `${userInfo.prenom} ${userInfo.nom}`
                 )}
               </Col>
             </Row>
-            
+
             <Row>
               <Col lg={6}>
                 {renderTextInput(
-                  "Nom du Formateur", 
-                  "formateur", 
-                  "Nom du formateur",
-                  "text",
+                  'Nom du Formateur',
+                  'formateur',
+                  'Nom du formateur',
+                  'text',
                   <FaUserTie />,
                   true,
                   formDetails.formateur
@@ -439,10 +509,10 @@ const EvaluationChaud = ({ userInfo }) => {
               </Col>
               <Col lg={6}>
                 {renderTextInput(
-                  "Organisme de formation", 
-                  "organisme", 
+                  'Organisme de formation',
+                  'organisme',
                   "Nom de l'organisme",
-                  "text",
+                  'text',
                   <FaBuilding />,
                   true,
                   formDetails.organisme
@@ -454,15 +524,13 @@ const EvaluationChaud = ({ userInfo }) => {
               renderPreviousEvaluation()
             ) : (
               <>
-                <div className="mb-4">
+                <div className='mb-4'>
                   <h4>Note moyenne: {calculateAverage()}%</h4>
                 </div>
 
                 {/* Section des questions */}
-                <Card className="questions-main-card mt-4">
-                  <Card.Body>
-                    {renderQuestionSection()}
-                  </Card.Body>
+                <Card className='questions-main-card mt-4'>
+                  <Card.Body>{renderQuestionSection()}</Card.Body>
                 </Card>
               </>
             )}
